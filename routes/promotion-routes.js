@@ -19,22 +19,22 @@ router.post('/', (req, res) =>{
     let link        = req.body.link.substring(0, 255);
     let imagem      = req.body.imagem.substring(0, 255);
     let descricao   = req.body.descricao.substring(0, 255);
-    let cupom       = req.body.cupom.substring(0, 255);
+    let codigo_desconto = req.body.codigo_desconto.substring(0, 255);
     let data_inicio = req.body.data_inicio;
-    query(`INSERT INTO promocao(titulo, usuario, preco, link, imagem, descricao, data_cadastro, cupom, data_inicio) VALUES('${titulo}','${usuario}','${preco}','${link}','${imagem}','${descricao}',NOW(),'${cupom}', '${data_inicio}')`, res);
+    query(`INSERT INTO promocao(titulo, usuario, preco, link, imagem, descricao, data_cadastro, codigo_desconto, data_inicio) VALUES('${titulo}','${usuario}','${preco}','${link}','${imagem}','${descricao}',NOW(),'${codigo_desconto}', '${data_inicio}')`, res);
 });
 
 router.patch('/:id', (req, res) =>{
     const id         = parseInt(req.params.id);
     let titulo       = req.body.titulo.substring(0,150);
     let descricao    = req.body.descricao.substring(0, 255);
-    let cupom        = req.body.cupom.substring(0, 255);
+    let codigo_desconto        = req.body.codigo_desconto.substring(0, 255);
     let imagem       = req.body.imagem.substring(0, 255);
     let link         = req.body.link.substring(0, 255);
     let preco        = req.body.preco;
     let data_termino = req.body.data_termino;
     let data_remocao = req.body.data_remocao;
-    query(`UPDATE promocao SET titulo='${titulo}', descricao='${descricao}', cupom='${cupom}', imagem='${imagem}', link='${link}', preco='${preco}', data_modificacao=NOW(), data_remocao='${data_remocao}', data_termino='${data_termino}' WHERE ID=${id}`, res); 
+    query(`UPDATE promocao SET titulo='${titulo}', descricao='${descricao}', codigo_desconto='${codigo_desconto}', imagem='${imagem}', link='${link}', preco='${preco}', data_modificacao=NOW(), data_remocao='${data_remocao}', data_termino='${data_termino}' WHERE ID=${id}`, res); 
 });
 
 // Adicionar Categoria

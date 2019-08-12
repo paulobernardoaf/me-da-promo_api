@@ -9,7 +9,8 @@ const router = express.Router();
 const promotionRoutes   = require("./routes/promotion-routes.js");
 const commentRoutes     = require("./routes/comment-routes.js");
 const userRoutes        = require("./routes/user-routes.js");
-const categoryRoutes     = require("./routes/category-routes.js");
+const categoryRoutes    = require("./routes/category-routes.js");
+const favoriteRoutes    = require("./routes/favorite-routes.js");
 
 //configurando o body parser para pegar POSTS mais tarde
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,7 +21,7 @@ app.use('/promotion', promotionRoutes);
 app.use('/comment', commentRoutes);
 app.use('/user', userRoutes);
 app.use('/category', categoryRoutes);
-
+app.use('/favorite', favoriteRoutes);
 
 //inicia o servidor
 app.listen(port);
