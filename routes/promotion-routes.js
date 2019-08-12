@@ -20,8 +20,7 @@ router.post('/', (req, res) =>{
     let imagem      = req.body.imagem.substring(0, 255);
     let descricao   = req.body.descricao.substring(0, 255);
     let codigo_desconto = req.body.codigo_desconto.substring(0, 255);
-    let data_inicio = req.body.data_inicio;
-    query(`INSERT INTO promocao(titulo, usuario, preco, link, imagem, descricao, data_cadastro, codigo_desconto, data_inicio) VALUES('${titulo}','${usuario}','${preco}','${link}','${imagem}','${descricao}',NOW(),'${codigo_desconto}', '${data_inicio}')`, res);
+    query(`INSERT INTO promocao(titulo, usuario, preco, link, imagem, descricao, data_cadastro, codigo_desconto) VALUES('${titulo}','${usuario}','${preco}','${link}','${imagem}','${descricao}',NOW(),'${codigo_desconto}')`, res);
 });
 
 router.patch('/:id', (req, res) =>{
