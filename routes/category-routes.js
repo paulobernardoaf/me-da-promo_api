@@ -8,6 +8,11 @@ router.get('/:id?', (req, res) =>{
     query('SELECT * FROM categoria' + filter, res);
 })
 
+router.get('/bypromotion/:promotion', (req, res) =>{
+    let promotion = parseInt(req.params.promotion);
+    query(`SELECT * FROM categoria WHERE id IN (SELECT id_categoria FROM categoria_promocao WHERE id_promocao = '${promotion}')`, res);
+})
+
 router.delete('/:id', (req, res) =>{
     query('DELETE FROM categoria WHERE ID=' + parseInt(req.params.id), res);
 })
