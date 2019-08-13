@@ -4,7 +4,15 @@ const mysql = require("mysql")
 
 router.get('/:id?', (req, res) =>{
     let filter = '';
-    if(req.params.id) filter = ' WHERE ID=' + parseInt(req.params.id);
+    
+    if(req.params.id)   filter = ' WHERE ID=' + parseInt(req.params.id);
+    if(req.query.param) filter += " ORDER BY " + req.query.param;
+    if(req.query.order) filter += " " + req.query.order;
+    if(req.query.limit) filter += " LIMIT " + req.query.limit;
+    if(req.query.offset)filter += " OFFSET " + req.query.offset;
+
+    //console.log("SELECT * FROM promocao" + filter);
+
     query('SELECT * FROM promocao' + filter, res);
 })
 
