@@ -15,7 +15,7 @@ router.delete('/:id', (req, res) =>{
 router.post('/', (req, res) =>{
     let uid = req.body.uid.substring(0, 28);
     let nome = req.body.nome.substring(0, 255);
-    query(`INSERT INTO usuario(uid, nome) VALUES('${uid}','${nome}') WHERE uid NOT IN (SELECT uid FROM user)`, res);
+    query(`INSERT INTO usuario(uid, nome) SELECT '${uid}', '${nome}' FROM dual WHERE NOT EXISTS (SELECT * FROM usuario WHERE uid = '${uid}' AND nome = '${nome}')`, res);
 });
 
 router.patch('/:id', (req, res) =>{
