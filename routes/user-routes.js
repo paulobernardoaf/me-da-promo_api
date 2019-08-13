@@ -15,16 +15,14 @@ router.delete('/:id', (req, res) =>{
 router.post('/', (req, res) =>{
     let uid = req.body.uid.substring(0, 28);
     let nome = req.body.nome.substring(0, 255);
-    let email = req.body.email.substring(0, 255);
-    query(`INSERT INTO usuario(uid, nome, email) VALUES('${uid}','${nome}','${email}')`, res);
+    query(`INSERT INTO usuario(uid, nome) VALUES('${uid}','${nome}') WHERE uid NOT IN (SELECT uid FROM user)`, res);
 });
 
 router.patch('/:id', (req, res) =>{
     const id = parseInt(req.params.id);
     let uid = req.body.uid.substring(0, 28);
     let nome = req.body.nome.substring(0, 255);
-    let email = req.body.email.substring(0, 255);
-    query(`UPDATE usuario SET uid='${uid}', nome='${nome}', email='${email}' WHERE ID=${id}`, res); 
+    query(`UPDATE usuario SET uid='${uid}', nome='${nome}' WHERE ID=${id}`, res); 
 });
 
 module.exports = router;
