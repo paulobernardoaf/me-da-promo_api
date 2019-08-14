@@ -67,7 +67,7 @@ router.get('/vote/:id_promotion/:id_user?', (req, res) =>{
     let user        = req.params.id_user;
 
     if(req.query.mais)  query(`UPDATE promocao SET avaliacao = (avaliacao + 1) WHERE id = '${promotion}' AND '${user}' NOT IN (SELECT id_usuario FROM avaliacao)`, res);
-    if(req.query.menos) query(`UPDATE promocao SET avaliacao = (avaliaco - 1) WHERE id = '${promotion}' AND '${user}' NOT IN (SELECT id_usuario FROM avaliacao)`, res);
+    if(req.query.menos) query(`UPDATE promocao SET avaliacao = (avaliacao - 1) WHERE id = '${promotion}' AND '${user}' NOT IN (SELECT id_usuario FROM avaliacao)`, res);
 
 
     query(`INSERT IGNORE INTO avaliacao(id_usuario, id_promocao) VALUE('${user}', '${promotion}')`, res);
