@@ -62,7 +62,7 @@ router.post('/:id_promotion/:id_category', (req, res) =>{
 });
 
 
-router.post('/vote/:id_promotion/:id_user?', (req, res) =>{
+router.get('/vote/:id_promotion/:id_user?', (req, res) =>{
     let promotion   = parseInt(req.params.id_promotion);
     let user        = parseInt(req.params.id_user);
 
