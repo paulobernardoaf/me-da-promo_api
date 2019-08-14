@@ -9,7 +9,7 @@ router.get('/:uid?', (req, res) =>{
 })
 
 router.delete('/:id', (req, res) =>{
-    query('DELETE FROM usuario WHERE ID=' + parseInt(req.params.id), res);
+    query('DELETE FROM usuario WHERE ID=' + req.params.id, res);
 })
 
 router.post('/', (req, res) =>{
@@ -19,7 +19,7 @@ router.post('/', (req, res) =>{
 });
 
 router.patch('/:id', (req, res) =>{
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
     let uid = req.body.uid.substring(0, 28);
     let nome = req.body.nome.substring(0, 255);
     query(`UPDATE usuario SET uid='${uid}', nome='${nome}' WHERE ID=${id}`, res); 

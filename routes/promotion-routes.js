@@ -15,8 +15,6 @@ router.get('/:id?', (req, res) =>{
     if(req.query.limit) filter += " LIMIT " + req.query.limit;
     if(req.query.offset)filter += " OFFSET " + req.query.offset;
 
-    //console.log("SELECT * FROM promocao" + filter);
-
     query('SELECT * FROM promocao' + filter, res);
 })
 
@@ -66,11 +64,13 @@ router.get('/vote/:id_promotion/:id_user?', (req, res) =>{
     let promotion   = parseInt(req.params.id_promotion);
     let user        = req.params.id_user;
 
+    console.log("1 ----- ");
     if(req.query.mais)  query(`UPDATE promocao SET avaliacao = (avaliacao + 1) WHERE id = '${promotion}' AND '${user}' NOT IN (SELECT id_usuario FROM avaliacao)`, res);
     if(req.query.menos) query(`UPDATE promocao SET avaliacao = (avaliacao - 1) WHERE id = '${promotion}' AND '${user}' NOT IN (SELECT id_usuario FROM avaliacao)`, res);
-
+    console.log("2 ----- ");
 
     query(`INSERT IGNORE INTO avaliacao(id_usuario, id_promocao) VALUE('${user}', '${promotion}')`, res);
+    console.log("3 ----- ");
 });
 
 module.exports = router;
