@@ -2,6 +2,7 @@ const mysql = require("mysql");
 
 module.exports = function execSQLQuery(sqlQry, res){
     const connection = mysql.createConnection({
+        multipleStatements: true,
         host     : 'mysql669.umbler.com',
         port     : 41890,
         user     : 'medapromoadmin',

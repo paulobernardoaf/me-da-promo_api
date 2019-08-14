@@ -64,13 +64,12 @@ router.get('/vote/:id_promotion/:id_user?', (req, res) =>{
     let promotion   = parseInt(req.params.id_promotion);
     let user        = req.params.id_user;
 
-    console.log("1 ----- ");
-    if(req.query.mais)  query(`UPDATE promocao SET avaliacao = (avaliacao + 1) WHERE id = ${promotion} AND '${user}' NOT IN (SELECT id_usuario FROM avaliacao WHERE id_promocao = ${promotion})`, res);
-    if(req.query.menos) query(`UPDATE promocao SET avaliacao = (avaliacao - 1) WHERE id = ${promotion} AND '${user}' NOT IN (SELECT id_usuario FROM avaliacao WHERE id_promocao = ${promotion})`, res);
-    console.log("2 ----- ");
+    let sql = "";
 
-    query(`INSERT IGNORE INTO avaliacao(id_usuario, id_promocao) VALUE('${user}', '${promotion}')`, res);
-    console.log("3 ----- ");
+    if(req.query.mais)  sql += "UPDATE promocao SET avaliacao = (avaliacao + 1) WHERE id = "+promotion+" AND NOT EXISTS (SELECT * FROM avaliacao WHERE id_promocao = "+promotion+" AND id_usuario = '"+user+"');";
+    if(req.query.menos) sql += "UPDATE promocao SET avaliacao = (avaliacao - 1) WHERE id = "+promotion+" AND NOT EXISTS (SELECT * FROM avaliacao WHERE id_promocao = "+promotion+" AND id_usuario = '"+user+"');";
+
+    query(sql + " INSERT INTO avaliacao(id_usuario, id_promocao) SELECT '"+user+"', '"+promotion+"' FROM dual WHERE NOT EXISTS (SELECT * FROM avaliacao WHERE id_usuario = '"+user+"' AND id_promocao = "+promotion+");", res);
 });
 
 module.exports = router;
