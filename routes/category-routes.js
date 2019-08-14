@@ -4,7 +4,12 @@ const mysql = require("mysql")
 
 router.get('/:id?', (req, res) =>{
     let filter = '';
-    if(req.params.id) filter = ' WHERE ID=' + parseInt(req.params.id);
+
+    let search = req.query.search.split(" ").join("%') OR (tag LIKE '%");
+
+    if(req.params.id)   filter = ' WHERE ID=' + parseInt(req.params.id);
+    if(req.query.search)filter = ' WHERE (tag LIKE \'%' + search + '%\')';
+
     query('SELECT * FROM categoria' + filter, res);
 })
 

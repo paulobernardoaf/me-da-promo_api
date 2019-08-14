@@ -5,7 +5,10 @@ const mysql = require("mysql")
 router.get('/:id?', (req, res) =>{
     let filter = '';
     
+    let search = req.query.search.split(" ").join("%') OR (titulo LIKE '%");
+
     if(req.params.id)   filter = ' WHERE ID=' + parseInt(req.params.id);
+    if(req.query.search)filter = ' WHERE (titulo LIKE \'%' + search + '%\')';
     if(req.query.param) filter += " ORDER BY " + req.query.param;
     if(req.query.order) filter += " " + req.query.order;
     if(req.query.limit) filter += " LIMIT " + req.query.limit;
