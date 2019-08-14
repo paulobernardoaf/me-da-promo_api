@@ -2,9 +2,9 @@ const router = require('express').Router();
 const query = require("../query.js");
 const mysql = require("mysql")
 
-router.get('/:id?', (req, res) =>{
+router.get('/:uid?', (req, res) =>{
     let filter = '';
-    if(req.params.id) filter = ' WHERE ID=' + parseInt(req.params.id);
+    if(req.params.uid) filter = ' WHERE uid=' + parseInt(req.params.uid);
     query('SELECT * FROM usuario' + filter, res);
 })
 
