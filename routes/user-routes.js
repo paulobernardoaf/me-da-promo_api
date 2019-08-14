@@ -4,7 +4,7 @@ const mysql = require("mysql")
 
 router.get('/:uid?', (req, res) =>{
     let filter = '';
-    if(req.params.uid) filter = ' WHERE uid=' + req.params.uid;
+    if(req.params.uid) filter = " WHERE uid='" + req.params.uid + "'";
     query('SELECT * FROM usuario' + filter, res);
 })
 
